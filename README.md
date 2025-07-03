@@ -1,4 +1,6 @@
 # Filmoteca-Educ360 🎬
+Written by Fabio Marquez on 2025 in GNU Cobol
+Converted to AcuCobol 7 by Isaac Garcia Peveri (still using character interface)
 
 ![language](https://img.shields.io/badge/language-COBOL-blue)
 ![status](https://img.shields.io/badge/status-Educacional-orange)
