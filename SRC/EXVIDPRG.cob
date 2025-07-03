@@ -118,7 +118,7 @@
            MOVE 10                                         TO WRK-LINE.
            INITIALIZE REG-FIL WRK-MSG WRK-IS-VALID.
       *
-           DISPLAY SCREEN-MAIN.
+      *     DISPLAY SCREEN-MAIN.
            DISPLAY SCREEN-MENU.
            DISPLAY SCREEN-EDIT.
            ACCEPT  SCREEN-EDIT-KEY.

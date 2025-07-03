@@ -119,7 +119,7 @@
            INITIALIZE REG-FIL WRK-MSG WRK-IS-VALID.
            MOVE '+' TO GENERO.
       *
-           DISPLAY SCREEN-MAIN.
+      *     DISPLAY SCREEN-MAIN.
            DISPLAY SCREEN-MENU.
            DISPLAY SCREEN-EDIT.
            ACCEPT  SCREEN-EDIT-KEY.
