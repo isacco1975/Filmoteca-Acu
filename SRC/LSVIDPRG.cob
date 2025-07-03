@@ -136,7 +136,7 @@
            MOVE "PF3=EXT   ANY KEY TO ADVANCE PAGE" TO WRK-KEYS.
            MOVE 8 TO WRK-LINE.
       *
-           DISPLAY SCREEN-MAIN.
+      * wrong!!!!     DISPLAY SCREEN-MAIN.
            DISPLAY SCREEN-MENU.
            DISPLAY SCREEN-LIST.
       *
