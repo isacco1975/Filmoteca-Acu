@@ -3,7 +3,8 @@
       **
        01 SCREEN-GENRE.
            05 LINE 05 COLUMN 71 VALUE 'PAG:'.
-           05 LINE 05 COLUMN 76 PIC 9(02) USING WRK-LST-PAGE.
+           05 LINE 05 COLUMN 76 PIC 9(02) USING WRK-LST-PAGE 
+              COLOR 6 HIGHLIGHT.
            05 LINE 06 COLUMN 58 VALUE "+-------------------+" 
                COLOR 4 HIGHLIGHT.
            05 LINE 07 COLUMN 58 VALUE "| CODIGO |  GENERO  |" 

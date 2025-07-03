@@ -1,4 +1,3 @@
-rem c:\acucorp\acucbl700\acugt\bin\ccbl32 -Zd -Sp ".\COPY" -o "OBJ\fabio.acu" "SRC\fabio.cbl"
 c:\acucorp\acucbl700\acugt\bin\ccbl32 -Zd -Sp ".\CPY"  -o "OBJ\ALVIDPRG.acu" "SRC\ALVIDPRG.cob"
 c:\acucorp\acucbl700\acugt\bin\ccbl32 -Zd -Sp ".\CPY"  -o "OBJ\EXVIDPRG.acu" "SRC\EXVIDPRG.cob"
 c:\acucorp\acucbl700\acugt\bin\ccbl32 -Zd -Sp ".\CPY"  -o "OBJ\IMVIDPRG.acu" "SRC\IMVIDPRG.cob"

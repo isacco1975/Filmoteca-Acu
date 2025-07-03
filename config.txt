@@ -11,8 +11,6 @@ FILE_PREFIX   .\dat\
 #------------------------------------------------------------------
 CODE_PREFIX   .\OBJ\
 
-
-
 IO_CREATES 1
 TRIM_TRAILING_SPACES 1
 SCROLL 0
