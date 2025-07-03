@@ -3,6 +3,8 @@
       **
        01 SCREEN-ASCII-ART.
            05 BLANK SCREEN FOREGROUND-COLOR 7 BACKGROUND-COLOR 1.
+           05 LINE 05 COL 35 COLOR 3 HIGHLIGHT 
+              VALUE "ENGLISH VERSION".
            05 LINE 08 COLUMN 20 VALUE
                " _____ _ _                 _                 ".
            05 LINE 09 COLUMN 20 VALUE
