@@ -51,14 +51,14 @@
        0100-OPEN-DATA SECTION.
            OPEN I-O MOVIES.
       *
-           IF FS-MOVIES NOT EQUAL "00"
-               MOVE '46ERRO AO ABRIR ARQUIVO DE DADOS DE FILMES.'
+           IF FS-MOVIES NOT EQUAL ZERO
+               MOVE '46ERROR OPENING MOVIES FILE.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO ABRIR ARQUIVO DE DADOS DE FILMES'
+               MOVE 'ERROR OPENING MOVIES FILE'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
@@ -70,8 +70,8 @@
 
        0300-PROCESS-DATA SECTION.
            COPY 'CPVIDDTE.cpy'. *> DATE/TIME PROCEDURE
-           MOVE "   * * * * ALTERACAO DE FILME * * * *"    TO WRK-TITLE.
-           MOVE "PF3=FIM  TAB=PROX CAMPO  ENTER=CONFIRMA/ESCOLHE GENERO"
+           MOVE "   * * * *   EDIT MOVIE FORM  * * * *"    TO WRK-TITLE.
+           MOVE "PF3=EXT  TAB=NEXT FIELD  ENTER=CONFIRM/SELECT GENRE"
              TO WRK-KEYS.
            MOVE 9                                           TO WRK-LINE.
            INITIALIZE REG-FIL WRK-MSG WRK-IS-VALID.
@@ -83,7 +83,7 @@
 
            READ MOVIES
                INVALID KEY
-                   MOVE '48FILME NAO LOCALIZADO! NOVA CONSULTA (S/N)?'
+                   MOVE '48MOVIE CODE NOT FOUND! NEW SEARCH (Y/N)?'
                        TO WRK-MSG
                NOT INVALID KEY
                    PERFORM 0310-SRC-GENRE
@@ -97,27 +97,27 @@
                        DISPLAY SCREEN-MSG
                        ACCEPT SCREEN-WAIT
                    ELSE
-                       MOVE '42CONFIRMA A GRAVACAO DO FILME (S/N)?'
+                       MOVE '42CONFIRM RECORDING THE ENTRY (Y/N)?'
                            TO WRK-MSG
       *
                            DISPLAY SCREEN-CONFIRMATION
                            ACCEPT SCREEN-CONFIRMATION-WAIT
       *
-                           IF WRK-AWAIT EQUAL 'S' OR EQUAL 's'
+                           IF WRK-AWAIT EQUAL 'Y' OR EQUAL 'y'
                            INITIALIZE WRK-MSG
                            REWRITE REG-FIL
                                INVALID KEY
                                    MOVE
-                               '42ERRO AO ALTERAR! NOVO CADASTRO (S/N)?'
+                               '42EDIT ERROR! NEW ENTRY (Y/N)?'
                                    TO WRK-MSG
                                NOT INVALID KEY
                                    MOVE
-                    '54FILME ALTERADO COM SUCESSO! NOVO CADASTRO (S/N)?'
+                    '54RECORD CHANGED SUCCESSFULLY. NEW ENTRY (Y/N)?'
                                    TO WRK-MSG
                            END-REWRITE
                        ELSE
                            INITIALIZE WRK-MSG
-                           MOVE '27NOVO CADASTRO (S/N)?'
+                           MOVE '27NEW ENTRY (Y/N)?'
                            TO WRK-MSG
                        END-IF
                    END-IF
@@ -141,13 +141,13 @@
            CLOSE MOVIES.
       *
            IF FS-MOVIES NOT EQUAL ZERO
-               MOVE '47ERRO AO FECHAR ARQUIVO DE DADOS DE FILMES.'
+               MOVE '47ERROR FETCHING MOVIES RECORD.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO FECHAR ARQ DE DADOS DE FILMES.'
+               MOVE 'ERROR FETCHING MOVIES RECORD.'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.

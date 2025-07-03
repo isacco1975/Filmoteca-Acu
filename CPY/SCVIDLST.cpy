@@ -12,10 +12,10 @@
                "---------+" 
                COLOR 4 HIGHLIGHT.
            05 LINE 12 COLUMN 12 VALUE
-               "| CODIGO |             TITULO             |  GENERO  |" 
+               "| CODE   |             TITLE              |  GENRE   |" 
                COLOR 4 HIGHLIGHT.
            05 LINE 12 COLUMN 66 VALUE
-               " NOTA |" 
+               " GRAD |" 
                COLOR 4 HIGHLIGHT.
            05 LINE 13 COLUMN 12 VALUE
                 "+---------------------------------------------------+" 

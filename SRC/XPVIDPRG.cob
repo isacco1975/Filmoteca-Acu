@@ -65,26 +65,26 @@
       *
            IF FS-MOVIES-EXP NOT EQUAL "00"
                PERFORM 0500-CLOSE-DATA
-               MOVE '45ERRO AO ABRIR ARQUIVO DE SAIDA (CSV).'
+               MOVE '45ERROR OPENING OUTPUT FILE (CSV).'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO ABRIR ARQUIVO DE DADOS DE FILMES'
+               MOVE 'ERROR OPENING OUTPUT FILE (CSV).'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
       *
            IF FS-MOVIES NOT EQUAL "00"
                PERFORM 0500-CLOSE-DATA
-               MOVE '53ERRO AO ABRIR ARQUIVO DE DADOS DE FILMES.'
+               MOVE '53ERROR OPENING MOVIES FILE.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO ABRIR ARQUIVO DE DADOS DE FILMES'
+               MOVE 'ERROR OPENING MOVIES FILE'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
@@ -94,20 +94,20 @@
            IF FS-MOVIES NOT EQUAL "00"
                PERFORM 0500-CLOSE-DATA
       *
-               MOVE '36ERRO AO LER O PRIMEIRO REGISTRO.'
+               MOVE '36ERROR FETCHING FIRST ENTRY.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO LER O PRIMEIRO REGISTRO.'
+               MOVE 'ERROR FETCHING FIRST ENTRY.'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
 
       *    HEAD OF CSV FILE
            INITIALIZE FIL-EXP.
-           MOVE 'CODIGO;TITULO;GENERO;DURACAO;DISTRIB;NOTA' TO FIL-EXP.
+           MOVE 'CODE;TITLE;GENRE;DURATION;DISTRIB;GRADE' TO FIL-EXP.
            WRITE FIL-EXP.
       *
            INITIALIZE WRK-READ-LINES.
@@ -131,7 +131,7 @@
                INTO FIL-EXP.
       *
                WRITE FIL-EXP.
-               IF FS-MOVIES-EXP EQUAL "00"
+               IF FS-MOVIES-EXP EQUAL ZERO
                    ADD 1 TO WRK-WRITE-LINES
                END-IF.
       *
@@ -142,9 +142,9 @@
            MOVE WRK-READ-LINES  TO WRK-READ-LINES-EDIT.
            MOVE WRK-WRITE-LINES TO WRK-WRITE-LINES-EDIT.
       *
-           STRING '41ESTATISTICAS: LIDOS ' DELIMITED BY SIZE
+           STRING '41STATISTICS: READ ' DELIMITED BY SIZE
                   WRK-READ-LINES-EDIT DELIMITED BY SIZE
-                  ', GRAVADOS ' DELIMITED BY SIZE
+                  ', RECORDED ' DELIMITED BY SIZE
                   WRK-WRITE-LINES-EDIT DELIMITED BY SIZE
                   '.' DELIMITED BY SIZE
                   INTO WRK-MSG.
@@ -157,25 +157,25 @@
            CLOSE MOVIES-EXP MOVIES.
       *
            IF FS-MOVIES-EXP NOT EQUAL "00"
-               MOVE '44ERRO AO FECHAR ARQUIVO DE SAIDA (CSV).'
+               MOVE '44ERROR FETCHING OUTPUT (CSV).'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO FECHAR ARQUIVO DE SAIDA (CSV)'
+               MOVE 'ERROR FETCHING OUTPUT (CSV)'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
       *
            IF FS-MOVIES NOT EQUAL "00"
-               MOVE '47ERRO AO FECHAR ARQUIVO DE DADOS DE FILMES.'
+               MOVE '47ERROR FETCHING MOVIES RECORD.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO FECHAR ARQ DE DADOS DE FILMES'
+               MOVE 'ERROR FETCHING MOVIES RECORD.'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.

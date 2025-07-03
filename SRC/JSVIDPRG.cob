@@ -66,44 +66,44 @@
            OPEN OUTPUT MOVIES-EXP
                 INPUT  MOVIES.
       *
-           IF FS-MOVIES-EXP NOT EQUAL "00"
+           IF FS-MOVIES-EXP NOT EQUAL ZERO
                PERFORM 0500-CLOSE-DATA
-               MOVE '45ERRO AO ABRIR ARQUIVO DE SAIDA (JSON).'
+               MOVE '45ERROR OPENING OUTPUT FILE (JSON).'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO ABRIR ARQUIVO DE SAIDA (JSON).'
+               MOVE 'ERROR OPENING OUTPUT FILE (JSON).'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
       *
            IF FS-MOVIES NOT EQUAL "00"
                PERFORM 0500-CLOSE-DATA
-               MOVE '53ERRO AO ABRIR ARQUIVO DE DADOS DE FILMES.'
+               MOVE '53ERROR OPENING MOVIES FILE.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO ABRIR ARQUIVO DE DADOS DE FILMES'
+               MOVE 'ERROR OPENIONG MOVIES FILE.'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
 
            READ MOVIES NEXT AT END CONTINUE.
       *
-           IF FS-MOVIES NOT EQUAL "00"
+           IF FS-MOVIES NOT EQUAL ZERO
                PERFORM 0500-CLOSE-DATA
       *
-               MOVE '36ERRO AO LER O PRIMEIRO REGISTRO.'
+               MOVE '36ERROR READING THE FIRST ENTRY.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO LER O PRIMEIRO REGISTRO.'
+               MOVE 'ERROR READING THE FIRST ENTRY.'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
@@ -152,9 +152,9 @@
            MOVE WRK-READ-LINES  TO WRK-READ-LINES-EDIT.
            MOVE WRK-WRITE-LINES TO WRK-WRITE-LINES-EDIT.
       *
-           STRING '41ESTATISTICAS: LIDOS ' DELIMITED BY SIZE
+           STRING '41STATISTICS: READ ' DELIMITED BY SIZE
                   WRK-READ-LINES-EDIT DELIMITED BY SIZE
-                  ', GRAVADOS ' DELIMITED BY SIZE
+                  ', RECORDED ' DELIMITED BY SIZE
                   WRK-WRITE-LINES-EDIT DELIMITED BY SIZE
                   '.' DELIMITED BY SIZE
                   INTO WRK-MSG.
@@ -170,26 +170,26 @@
       *
            CLOSE MOVIES-EXP MOVIES.
       *
-           IF FS-MOVIES-EXP NOT EQUAL "00"
-               MOVE '44ERRO AO FECHAR ARQUIVO DE SAIDA (JSON).'
+           IF FS-MOVIES-EXP NOT EQUAL ZERO
+               MOVE '44ERROR FETCHING OUTPUT FILE (JSON).'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO FECHAR ARQUIVO DE SAIDA (JSON)'
+               MOVE 'ERROR FETCHING OUTPUT FILE (JSON)'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
       *
-           IF FS-MOVIES NOT EQUAL "00"
-               MOVE '47ERRO AO FECHAR ARQUIVO DE DADOS DE FILMES.'
+           IF FS-MOVIES NOT EQUAL ZERO
+               MOVE '47ERROR FETCHING MOVIES RECORD.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO FECHAR ARQ DE DADOS DE FILMES'
+               MOVE 'ERROR FETCHING MOVIES RECORD'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.

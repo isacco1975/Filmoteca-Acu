@@ -64,21 +64,21 @@
       *
        0300-PROCESS-DATA SECTION.
            COPY 'CPVIDDTE.cpy'. *> DATE/TIME PROCEDURE
-           MOVE "     * * * * MENU PRINCIPAL * * * *" TO WRK-TITLE.
-           MOVE "PF3=FIM"                             TO WRK-KEYS.
+           MOVE "     * * * * M A I N  M E N U * * *" TO WRK-TITLE.
+           MOVE "PF3=EXIT"                            TO WRK-KEYS.
            MOVE '0'                                   TO WRK-OPTION.
       *
            DISPLAY SCREEN-MAIN.
       *
       *    IF WRK-DATFILE-CREATED EQUAL 'S'
-               INITIALIZE WRK-DATFILE-CREATED
-               INITIALIZE WRK-MSG
-               MOVE '29ARQUIVO DE DADOS CRIADO.' TO WRK-MSG
-               DISPLAY SCREEN-MSG
-               ACCEPT SCREEN-WAIT
+      *        INITIALIZE WRK-DATFILE-CREATED
+      *        INITIALIZE WRK-MSG
+      *        MOVE '29 RECORDS CREATED        ' TO WRK-MSG
+      *        DISPLAY SCREEN-MSG
+      *        ACCEPT SCREEN-WAIT
 
-               INITIALIZE WRK-MSG
-               DISPLAY WRK-MSG-TEXT AT LINE 22 COLUMN 02
+      *        INITIALIZE WRK-MSG
+      *        DISPLAY WRK-MSG-TEXT AT LINE 22 COLUMN 02
       *     END-IF.
       *
            DISPLAY SCREEN-MENU

@@ -59,14 +59,14 @@
        0100-OPEN-DATA SECTION.
            OPEN INPUT MOVIES.
       *
-           IF FS-MOVIES NOT EQUAL "00"
-               MOVE '46ERRO AO ABRIR ARQUIVO DE DADOS DE FILMES.'
+           IF FS-MOVIES NOT EQUAL ZERO
+               MOVE '46ERROR DURING OPENING MOVIES FILE.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO ABRIR ARQUIVO DE DADOS DE FILMES'
+               MOVE 'ERROR DURING OPENING MOVIES FILE'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
@@ -76,13 +76,13 @@
            READ MOVIES NEXT AT END CONTINUE END-READ
       *
            IF FS-MOVIES NOT EQUAL "00"
-               MOVE '46ERRO AO LER O PRIMEIRO REGISTO DE FILMES.'
+               MOVE '46ERROR FETCHING MOVIES FIRST ENTRY.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO LER O PRIMEIRO REGISTO DE FILMES'
+               MOVE 'ERROR FETCHING MOVIES FIRST ENTRY.'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
@@ -93,8 +93,8 @@
 
        0300-PROCESS-DATA SECTION.
            COPY 'CPVIDDTE.cpy'. *> DATE/TIME PROCEDURE
-           MOVE "   * * * * LISTAGEM DE FILMES * * * *" TO WRK-TITLE.
-           MOVE "PF3=FIM   QUALQUER TECLA PARA PAGINAR" TO WRK-KEYS.
+           MOVE "   * * * * M O V I E  L I S T * * * *" TO WRK-TITLE.
+           MOVE "PF3=EXT   ANY KEY TO ADVANCE PAGE" TO WRK-KEYS.
            MOVE 8 TO WRK-LINE.
       *
            DISPLAY SCREEN-MAIN.
@@ -125,18 +125,18 @@
            INITIALIZE WRK-MSG.
 
            IF FS-MOVIES EQUAL 10
-               MOVE '20FIM DE ARQUIVO.' TO WRK-MSG
+               MOVE '20END OF FILE.' TO WRK-MSG
       *
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
                MOVE 'N' TO WRK-CONTINUE
            ELSE
-               MOVE '31CONTINUAR LISTANDO (S/N)?' TO WRK-MSG
+               MOVE '31SHOW MORE ENRTRIES (Y/N)?' TO WRK-MSG
       *
                DISPLAY SCREEN-CONFIRMATION
                ACCEPT SCREEN-CONFIRMATION-WAIT
       *
-               IF WRK-AWAIT EQUAL 'S' OR EQUAL 's'
+               IF WRK-AWAIT EQUAL 'Y' OR EQUAL 'y'
                    MOVE WRK-AWAIT TO WRK-CONTINUE
                ELSE
                    MOVE 'N' TO WRK-CONTINUE
@@ -157,13 +157,13 @@
            CLOSE MOVIES.
       *
            IF FS-MOVIES NOT EQUAL "00"
-               MOVE '47ERRO AO FECHAR ARQUIVO DE DADOS DE FILMES.'
+               MOVE '47ERROR FETCHING MOVIES RECORD.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO FECHAR ARQ DE DADOS DE FILMES.'
+               MOVE 'ERROR FETCHING MOVIES RECORD.'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.

@@ -6,22 +6,22 @@
                "+---------------------------------------------------+"
                .
            05 LINE PLUS 1 COLUMN 12 VALUE
-               "| CODIGO.........: [     ]                          |"
+               "| CODE...........: [     ]                          |"
                .
            05 LINE PLUS 1 COLUMN 12 VALUE
-               "| NOME DO FILME..: [                              ] |" 
+               "| MOVIE NAME.....: [                              ] |" 
                .
            05 LINE PLUS 1 COLUMN 12 VALUE
-               "| DURACAO........: [   ]                            |" 
+               "| DURATION.......: [   ]                            |" 
                .
            05 LINE PLUS 1 COLUMN 12 VALUE
-               "| DISTRIBUIDORA..: [               ]                |" 
+               "| DISTRIBUTED BY.: [               ]                |" 
                .
            05 LINE PLUS 1 COLUMN 12 VALUE
-               "| MINHA NOTA.....: [  ]                             |" 
+               "| MY GRADE.......: [  ]                             |" 
                .
            05 LINE PLUS 1 COLUMN 12 VALUE
-               "| GENERO.........: [  ][        ] (+) PESQUISA      |" 
+               "| GENRE..........: [  ][        ] (+) SEARCH        |" 
                .
            05 LINE PLUS 1 COLUMN 12 VALUE
                "+---------------------------------------------------+" 

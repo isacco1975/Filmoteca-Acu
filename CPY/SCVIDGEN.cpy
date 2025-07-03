@@ -7,7 +7,7 @@
               COLOR 6 HIGHLIGHT.
            05 LINE 06 COLUMN 58 VALUE "+-------------------+" 
                COLOR 4 HIGHLIGHT.
-           05 LINE 07 COLUMN 58 VALUE "| CODIGO |  GENERO  |" 
+           05 LINE 07 COLUMN 58 VALUE "| CODE   |  GENRE   |" 
                COLOR 4 HIGHLIGHT.
            05 LINE 08 COLUMN 58 VALUE "+-------------------+" 
                COLOR 4 HIGHLIGHT.

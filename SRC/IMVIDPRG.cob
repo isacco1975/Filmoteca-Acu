@@ -86,26 +86,26 @@
       *
            IF FS-MOVIES-SEQ NOT EQUAL "00"
                PERFORM 0500-CLOSE-DATA
-               MOVE '45ERRO AO ABRIR ARQUIVO DE ENTRADA (CSV).'
+               MOVE '45ERRORS OPENING THE CSV FILE     (CSV).'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES-SEQ TO WS-ABEND-CODE
-               MOVE 'ERRO AO ABRIR ARQUIVO DE DADOS DE FILMES'
+               MOVE 'ERROR OPENING INDEXED MOVIES FILE       '
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
       *
            IF FS-MOVIES NOT EQUAL "00"
                PERFORM 0500-CLOSE-DATA
-               MOVE '53ERRO AO ABRIR ARQUIVO DE DADOS DE FILMES.'
+               MOVE '53ERROR OPENING INDEXED MOVIS FILE.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO ABRIR ARQUIVO DE DADOS DE FILMES'
+               MOVE 'ERROR DURING OPENING MOVIES FILE        '
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
@@ -117,13 +117,13 @@
 
                IF FS-RELATO-IMP NOT EQUAL "00"
                    PERFORM 0500-CLOSE-DATA
-                   MOVE '53ERRO AO ABRIR ARQUIVO DE RELATORIO.'
+                   MOVE '53ERROR OPENING RELATO-IMP FILE.'
                      TO WRK-MSG
                    DISPLAY SCREEN-MSG
                    ACCEPT SCREEN-WAIT
       *
                    MOVE FS-RELATO-IMP TO WS-ABEND-CODE
-                   MOVE 'ERRO AO ABRIR ARQUIVO DE RELATORIO.'
+                   MOVE 'ERROR OPENING RELATO-IMP FILE.'
                      TO WS-ABEND-MESSAGE
                    PERFORM 0600-ROT-ABEND
                END-IF
@@ -134,13 +134,13 @@
            IF FS-MOVIES NOT EQUAL "00"
                PERFORM 0500-CLOSE-DATA
       *
-               MOVE '26ERRO AO LER CABECALHO.'
+               MOVE '26ERROR READING HEADER.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO LER CABECALHO.'
+               MOVE 'ERROR READING HEADER.'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
@@ -150,13 +150,13 @@
            IF FS-MOVIES NOT EQUAL "00"
                PERFORM 0500-CLOSE-DATA
       *
-               MOVE '36ERRO AO LER O PRIMEIRO REGISTRO.'
+               MOVE '36ERROR READING FIRST RECORD.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO LER O PRIMEIRO REGISTRO.'
+               MOVE 'ERROR READING FIRST RECORD.'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
@@ -181,7 +181,7 @@
                     NOTA.
       *
                WRITE REG-FIL.
-               IF FS-MOVIES EQUAL "00"
+               IF FS-MOVIES EQUAL ZERO
                    ADD 1 TO WRK-WRITE-LINES
                ELSE
                    IF WRK-SKIPPED-LINES EQUAL 0
@@ -197,7 +197,7 @@
                    INITIALIZE REL-IMP
                    MOVE CODIGO                TO REL-IMP-CODIGO
                    MOVE TITULO                TO REL-IMP-TITULO
-                   MOVE 'CODIGO JA EXISTENTE' TO REL-IMP-MENSAGEM
+                   MOVE 'CODE ALREADY DEFD. ' TO REL-IMP-MENSAGEM
                    WRITE REL-IMP
 
                    ADD 1 TO WRK-SKIPPED-LINES
@@ -211,7 +211,7 @@
            MOVE WRK-WRITE-LINES   TO WRK-WRITE-LINES-EDIT.
            MOVE WRK-SKIPPED-LINES TO WRK-SKIPPED-LINES-EDIT.
       *
-           STRING '39ESTATISTICAS: LD ' DELIMITED BY SIZE
+           STRING '39ESTATISTICS: LD ' DELIMITED BY SIZE
                   WRK-READ-LINES-EDIT DELIMITED BY SIZE
                   ', GR ' DELIMITED BY SIZE
                   WRK-WRITE-LINES-EDIT DELIMITED BY SIZE
@@ -229,31 +229,31 @@
       *
            IF FS-MOVIES-SEQ NOT EQUAL "00"
                PERFORM 0500-CLOSE-DATA
-               MOVE '46ERRO AO FECHAR ARQUIVO DE ENTRADA (CSV).'
+               MOVE '46FETCHING CSV ERROR (CSV).'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES-SEQ TO WS-ABEND-CODE
-               MOVE 'ERRO AO FECHAR ARQUIVO DE ENTRADA (CSV)'
+               MOVE 'FETCHING CSV ERROR (CSV)'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
       *
            IF FS-MOVIES NOT EQUAL "00"
-               MOVE '47ERRO AO FECHAR ARQUIVO DE DADOS DE FILMES.'
+               MOVE '47ERROR FETCHING MOVIES RECORD.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO FECHAR ARQ DE DADOS DE FILMES'
+               MOVE 'ERROR FETCHING MOVIES RECORD.'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
       *
            IF FS-RELATO-IMP NOT EQUAL "00"
-      *       MOVE '42ERRO AO FECHAR ARQUIVO DE RELATORIO.'
+      *       MOVE '42ERROR FETCHING RELATO-IMP RECORD.'
       *         TO WRK-MSG
               MOVE 42 TO WRK-MSG-LEN
               MOVE FS-RELATO-IMP TO WRK-MSG-TEXT
@@ -262,7 +262,7 @@
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-RELATO-IMP TO WS-ABEND-CODE
-               MOVE 'ERRO AO FECHAR ARQ DE RELATORIO'
+               MOVE 'ERROR FETCHING RELATO-IMP RECORD.'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.

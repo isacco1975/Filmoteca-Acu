@@ -12,7 +12,7 @@
            05 LINE 02 COLUMN 40 VALUE
                "                                        |".
       *    05 LINE 02 COLUMN 03 PIC X(10) USING WRK-DATE.
-           05 LINE 02 COLUMN 31 VALUE "SISTEMA FILMOTECA".
+           05 LINE 02 COLUMN 31 VALUE "  MOVIE CATALOG  ".
       *    05 LINE 02 COLUMN 74 PIC X(05) USING WRK-TIME.
            05 LINE 02 COLUMN 70 PIC X(10) USING WRK-DATE.
            05 LINE 03 COLUMN 01 VALUE

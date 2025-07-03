@@ -64,13 +64,13 @@
        0100-OPEN-DATA SECTION.
            OPEN INPUT GENRES.
            IF FS-GENRES NOT EQUAL "00"
-               MOVE '47ERRO AO ABRIR ARQUIVO DE DADOS DE GENEROS.'
+               MOVE '47ERROR OPENING GENRE FILE.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-GENRES TO WS-ABEND-CODE
-               MOVE 'ERRO ABRIR ARQUIVO DE DADOS DE GENEROS'
+               MOVE 'ERRO OPENING GENRE FILE'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
@@ -78,20 +78,20 @@
            READ GENRES
       *
            IF FS-GENRES NOT EQUAL "00"
-               MOVE '48ERRO AO LER O PRIMEIRO REGISTO DE GENEROS.'
+               MOVE '48ERROR FETCHING GENRE FIRST ENTRY.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-GENRES TO WS-ABEND-CODE
-               MOVE 'ERRO AO LER O PRIMEIRO REG. DE GENEROS'
+               MOVE 'ERROR FETCHING GENRE FIRST ENTRY'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
        0100-OPEN-DATA-END. EXIT.
 
        0150-SELECT-GENRE SECTION.
-           DISPLAY 'PF3=FIM   QUALQUER TECLA PARA PAGINAR'
+           DISPLAY 'PF3=EXT   ANY KEY TO FORWARD PAGES'
              AT LINE 24 COLUMN 03.
            
            DISPLAY SCREEN-GENRE
@@ -112,10 +112,10 @@
       *
            IF FS-GENRES EQUAL 10
              MOVE 'N'       TO WRK-CONTINUE
-             DISPLAY '* FIM *' AT LINE WRK-LST-LINE COLUMN 69
+             DISPLAY '* EXT *' AT LINE WRK-LST-LINE COLUMN 69
            END-IF.
       *
-           DISPLAY 'CODIGO.: [  ]' AT LINE 19 COLUMN 58.
+           DISPLAY 'CODE...: [  ]' AT LINE 19 COLUMN 58.
            ACCEPT WRK-GENRE        AT LINE 19 COLUMN 68.
       *
            IF(WRK-GENRE) NOT EQUAL SPACES
@@ -154,13 +154,13 @@
        0500-CLOSE-DATA SECTION.
            CLOSE GENRES.
            IF FS-GENRES NOT EQUAL "00"
-               MOVE '48ERRO AO FECHAR ARQUIVO DE DADOS DE GENEROS.'
+               MOVE '48ERRO FETCHING GENRE RECORD'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-GENRES TO WS-ABEND-CODE
-               MOVE 'ERRO FECHAR ARQ DE DADOS DE GENEROS.'
+               MOVE 'ERRO FETCHING GENRE RECORD'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.

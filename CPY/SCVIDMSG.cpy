@@ -5,7 +5,7 @@
            05 LINE 22 COLUMN 02 VALUE '=> '.
            05 LINE 22 COLUMN PLUS 1 PIC X(70) USING WRK-MSG-TEXT.
            05 LINE 22 COLUMN WRK-MSG-LEN VALUE
-               ' PRESSIONE UMA TECLA PARA CONTINUAR.' COLOR 7 
+               ' PRESS ANY KEY TO CONTYINUE.        ' COLOR 7 
                HIGHLIGHT.
       *
        01  SCREEN-WAIT.

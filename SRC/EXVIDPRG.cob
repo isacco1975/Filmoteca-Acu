@@ -53,13 +53,13 @@
        0100-OPEN-DATA SECTION.
            OPEN I-O MOVIES.
            IF FS-MOVIES NOT EQUAL "00"
-               MOVE '46ERRO AO ABRIR ARQUIVO DE DADOS DE FILMES.'
+               MOVE '46ERROR OPENING MOVIES FILE.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO ABRIR ARQUIVO DE DADOS DE FILMES'
+               MOVE 'ERROR OPENING MOVIES FILE.'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
@@ -70,8 +70,8 @@
 
        0300-PROCESS-DATA SECTION.
            COPY 'CPVIDDTE.cpy'. *> DATE/TIME PROCEDURE
-           MOVE "    * * * * EXCLUSAO DE FILME * * * *"    TO WRK-TITLE.
-           MOVE "PF3=FIM  TAB=PROX CAMPO  ENTER=CONFIRMA/ESCOLHE GENERO"
+           MOVE "    * * * *  MOVIE   REMOVAL  * * * *"    TO WRK-TITLE.
+           MOVE "PF3=EXU  TAB=NEXT FIELD  ENTER=CONFIRM/SELECT GENREO"
              TO WRK-KEYS.
            MOVE 10                                         TO WRK-LINE.
            INITIALIZE REG-FIL WRK-MSG WRK-IS-VALID.
@@ -83,7 +83,7 @@
 
            READ MOVIES
                INVALID KEY
-                   MOVE '48FILME NAO LOCALIZADO! NOVA EXCLUSAO (S/N)?'
+                   MOVE '48MOVIE NOT LOCALIZED! ADD A NEW ENTRY(Y/N)?'
                        TO WRK-MSG
                NOT INVALID KEY
       *
@@ -91,26 +91,26 @@
       *
                    INITIALIZE WRK-MSG
                    DISPLAY SCREEN-EDIT-DDS
-                   MOVE '41CONFIRMA A EXCLUSAO DO FILME (S/N)?'
+                   MOVE '41CONFIRMA A EXCLUSAO DO FILME (Y/N)?'
                        TO WRK-MSG
                    DISPLAY SCREEN-CONFIRMATION
                    ACCEPT SCREEN-CONFIRMATION-WAIT
       *
-                   IF WRK-AWAIT EQUAL 'S' OR EQUAL 's'
+                   IF WRK-AWAIT EQUAL 'Y' OR EQUAL 'y'
                        INITIALIZE WRK-MSG
                        DELETE MOVIES
                            INVALID KEY
                                MOVE
-                               '43ERRO AO EXCLUIR! NOVA EXCLUSAO (S/N)?'
+                               '43DELETE ERROR! NEW ENTRY? (Y/N)?'
                                    TO WRK-MSG
                            NOT INVALID KEY
                                MOVE
-                    '54FILME EXCLUIDO COM SUCESSO! NOVA EXCLUSAO (S/N)?'
+                    '54MOVIE DELETED SUCCESSFULLY! NEW DELETION (Y/N)?'
                                    TO WRK-MSG
                        END-DELETE
                    ELSE
                        INITIALIZE WRK-MSG
-                       MOVE '27NOVA EXCLUSAO (S/N)?'
+                       MOVE '27NEW DELETION (Y/N)?'
                        TO WRK-MSG
                    END-IF
            END-READ.
@@ -132,13 +132,13 @@
        0500-CLOSE-DATA SECTION.
            CLOSE MOVIES.
            IF FS-MOVIES NOT = ZERO
-               MOVE '47ERRO AO FECHAR ARQUIVO DE DADOS DE FILMES.'
+               MOVE '47ERROR FETCHING MOVIES RECORD.'
                    TO WRK-MSG
                DISPLAY SCREEN-MSG
                ACCEPT SCREEN-WAIT
       *
                MOVE FS-MOVIES TO WS-ABEND-CODE
-               MOVE 'ERRO AO FECHAR ARQ DE DADOS DE FILMES.'
+               MOVE 'ERROR FETCHING MOVIES RECORD.'
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
