@@ -1,0 +1,19 @@
+# TRIM SPAZI FINALI SU TUTTI I FILE GENERATI
+strip_trailing_spaces 1
+#
+#------------------------------------------------------------------
+# PERCORSO ARCHIVI
+#------------------------------------------------------------------
+FILE_PREFIX   .\dat\
+
+#------------------------------------------------------------------
+# PERCORSO LOAD
+#------------------------------------------------------------------
+CODE_PREFIX   .\OBJ\
+
+
+
+IO_CREATES 1
+TRIM_TRAILING_SPACES 1
+SCROLL 0
+WRAP 0

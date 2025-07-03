@@ -1,0 +1,182 @@
+      ******************************************************************
+      * FILE NAME   : INVIDPRG                                         *
+      * DATE        : 2025-06-07                                       *
+      * AUTHOR      : FABIO MARQUES (FMARQUES@FMARQUES.ETI.BR)         *
+      * DATA CENTER : COMPANY.EDUC360                                  *
+      * PURPOSE     : LIST ON SCREEN ROUTINE OF VIDEOTECA PROGRAM      *
+      ******************************************************************
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. LSVIDPRG.
+       AUTHOR. FABIO MARQUES.
+      *
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       SPECIAL-NAMES.
+           DECIMAL-POINT IS COMMA.
+      *
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+           COPY 'CPVIDSEQ.cpy'. *> MOVIES DAT WORKBOOK SEQUENTIAL
+      *
+       DATA DIVISION.
+
+       FILE SECTION.
+       FD MOVIES
+           RECORDING MODE IS F.
+           COPY 'CPVIDDAT.cpy'.
+      *
+       WORKING-STORAGE SECTION.
+           COPY 'CPVIDMAN.cpy'. *> MAIN SCREEN
+           COPY 'CPVIDMNU.cpy'. *> MAIN MENU
+           COPY 'CPVIDEDT.cpy'. *> EDITION SCREEN
+           COPY 'CPVIDMSG.cpy'. *> MESSAGES
+           COPY 'CPVIDFCW.cpy'. *> MOVIES DAT WORKBOOK
+           COPY 'CPVIDABE.cpy'. *> ABEND
+           COPY 'CPVIDSRC.cpy'. *> SEARCH RECORD GENRES
+      *
+       77  WRK-LST-LINE             PIC 9(02) USAGE COMP-3 VALUE 14.
+       77  WRK-LST-PAGE             PIC 9(02) USAGE COMP-3 VALUE 01.
+       77  WRK-LST-COUNT            PIC 9(02) USAGE COMP-3 VALUE 01.
+      *
+       SCREEN SECTION.
+           COPY 'SCVIDMAN.cpy'. *> MAIN SCREEN
+           COPY 'SCVIDMNU.cpy'. *> MAIN MENU
+           COPY 'SCVIDMSG.cpy'. *> MESSAGES
+           COPY 'SCVIDLST.cpy'. *> LIST SCREEN
+      *
+       PROCEDURE DIVISION.
+       0000-MAIN SECTION.
+           INITIALIZE WRK-CONTINUE.
+           PERFORM 0100-OPEN-DATA.
+      *     PERFORM 0200-VALIDATE-DATA.
+           PERFORM 0300-PROCESS-DATA UNTIL WRK-CONTINUE EQUAL 'N'
+                                        OR WRK-CONTINUE EQUAL 'n'.
+      *     PERFORM 0400-PRINT-RESULTS.
+           PERFORM 0500-CLOSE-DATA.
+           PERFORM 0700-END-PROGRAM.
+       0000-MAIN-END. EXIT.
+
+       0100-OPEN-DATA SECTION.
+           OPEN INPUT MOVIES.
+      *
+           IF FS-MOVIES NOT EQUAL "00"
+               MOVE '46ERRO AO ABRIR ARQUIVO DE DADOS DE FILMES.'
+                   TO WRK-MSG
+               DISPLAY SCREEN-MSG
+               ACCEPT SCREEN-WAIT
+      *
+               MOVE FS-MOVIES TO WS-ABEND-CODE
+               MOVE 'ERRO AO ABRIR ARQUIVO DE DADOS DE FILMES'
+                   TO WS-ABEND-MESSAGE
+               PERFORM 0600-ROT-ABEND
+           END-IF.
+      *
+           MOVE LOW-VALUES TO CODIGO
+           START MOVIES KEY >= CODIGO END-START
+           READ MOVIES NEXT AT END CONTINUE END-READ
+      *
+           IF FS-MOVIES NOT EQUAL "00"
+               MOVE '46ERRO AO LER O PRIMEIRO REGISTO DE FILMES.'
+                   TO WRK-MSG
+               DISPLAY SCREEN-MSG
+               ACCEPT SCREEN-WAIT
+      *
+               MOVE FS-MOVIES TO WS-ABEND-CODE
+               MOVE 'ERRO AO LER O PRIMEIRO REGISTO DE FILMES'
+                   TO WS-ABEND-MESSAGE
+               PERFORM 0600-ROT-ABEND
+           END-IF.
+       0100-OPEN-DATA-END. EXIT.
+
+       0200-VALIDATE-DATA SECTION.
+       0200-VALIDATE-DATA-END. EXIT.
+
+       0300-PROCESS-DATA SECTION.
+           COPY 'CPVIDDTE.cpy'. *> DATE/TIME PROCEDURE
+           MOVE "   * * * * LISTAGEM DE FILMES * * * *" TO WRK-TITLE.
+           MOVE "PF3=FIM   QUALQUER TECLA PARA PAGINAR" TO WRK-KEYS.
+           MOVE 8 TO WRK-LINE.
+      *
+           DISPLAY SCREEN-MAIN.
+           DISPLAY SCREEN-MENU.
+           DISPLAY SCREEN-LIST.
+      *
+           PERFORM VARYING WRK-LST-COUNT
+             FROM 1 BY 1 UNTIL WRK-LST-COUNT EQUAL 08
+                            OR FS-MOVIES     EQUAL 10
+      *
+               PERFORM 0310-SRC-GENRE
+      *
+               DISPLAY CODIGO       AT LINE WRK-LST-LINE COLUMN 14
+               COLOR 4 HIGHLIGHT             
+               DISPLAY TITULO       AT LINE WRK-LST-LINE COLUMN 23
+               COLOR 11 HIGHLIGHT 
+               DISPLAY LNK-GEN-DESC AT LINE WRK-LST-LINE COLUMN 56
+               COLOR 11 HIGHLIGHT 
+               DISPLAY NOTA         AT LINE WRK-LST-LINE COLUMN 68
+               COLOR 11 HIGHLIGHT 
+      *
+               ADD 1 TO WRK-LST-LINE
+               READ MOVIES NEXT AT END CONTINUE END-READ
+           END-PERFORM.
+      *
+           MOVE 14 TO WRK-LST-LINE.
+           ADD   1 TO WRK-LST-PAGE.
+           INITIALIZE WRK-MSG.
+
+           IF FS-MOVIES EQUAL 10
+               MOVE '20FIM DE ARQUIVO.' TO WRK-MSG
+      *
+               DISPLAY SCREEN-MSG
+               ACCEPT SCREEN-WAIT
+               MOVE 'N' TO WRK-CONTINUE
+           ELSE
+               MOVE '31CONTINUAR LISTANDO (S/N)?' TO WRK-MSG
+      *
+               DISPLAY SCREEN-CONFIRMATION
+               ACCEPT SCREEN-CONFIRMATION-WAIT
+      *
+               IF WRK-AWAIT EQUAL 'S' OR EQUAL 's'
+                   MOVE WRK-AWAIT TO WRK-CONTINUE
+               ELSE
+                   MOVE 'N' TO WRK-CONTINUE
+               END-IF
+           END-IF.
+       0300-PROCESS-DATA-END. EXIT.
+
+       0310-SRC-GENRE SECTION.
+           MOVE GENERO TO LNK-GEN-COD.
+           MOVE 0      TO LNK-GEN-DESC-LINE.
+           CALL 'SRVIDPRG' USING LNK-GENRES.
+       0310-SRC-GENRE-END. EXIT.
+
+       0400-PRINT-RESULTS SECTION.
+       0400-PRINT-RESULTS-END. EXIT.
+
+       0500-CLOSE-DATA SECTION.
+           CLOSE MOVIES.
+      *
+           IF FS-MOVIES NOT EQUAL "00"
+               MOVE '47ERRO AO FECHAR ARQUIVO DE DADOS DE FILMES.'
+                   TO WRK-MSG
+               DISPLAY SCREEN-MSG
+               ACCEPT SCREEN-WAIT
+      *
+               MOVE FS-MOVIES TO WS-ABEND-CODE
+               MOVE 'ERRO AO FECHAR ARQ DE DADOS DE FILMES.'
+                   TO WS-ABEND-MESSAGE
+               PERFORM 0600-ROT-ABEND
+           END-IF.
+       0500-CLOSE-DATA-END. EXIT.
+
+       0600-ROT-ABEND SECTION.
+           COPY 'CPVIDRAB.cpy'. *> ABEND ROUTINE.
+      *
+           PERFORM 0700-END-PROGRAM.
+       0600-ROT-ABEND-END. EXIT.
+
+       0700-END-PROGRAM SECTION.
+           GOBACK.
+       0700-END-PROGRAM-END. EXIT.
+
+       END PROGRAM LSVIDPRG.

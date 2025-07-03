@@ -1,0 +1,11 @@
+rem c:\acucorp\acucbl700\acugt\bin\ccbl32 -Zd -Sp ".\COPY" -o "OBJ\fabio.acu" "SRC\fabio.cbl"
+c:\acucorp\acucbl700\acugt\bin\ccbl32 -Zd -Sp ".\CPY"  -o "OBJ\ALVIDPRG.acu" "SRC\ALVIDPRG.cob"
+c:\acucorp\acucbl700\acugt\bin\ccbl32 -Zd -Sp ".\CPY"  -o "OBJ\EXVIDPRG.acu" "SRC\EXVIDPRG.cob"
+c:\acucorp\acucbl700\acugt\bin\ccbl32 -Zd -Sp ".\CPY"  -o "OBJ\IMVIDPRG.acu" "SRC\IMVIDPRG.cob"
+c:\acucorp\acucbl700\acugt\bin\ccbl32 -Zd -Sp ".\CPY"  -o "OBJ\INVIDPRG.acu" "SRC\INVIDPRG.cob"
+c:\acucorp\acucbl700\acugt\bin\ccbl32 -Zd -Sp ".\CPY"  -o "OBJ\JSVIDPRG.acu" "SRC\JSVIDPRG.cob"
+c:\acucorp\acucbl700\acugt\bin\ccbl32 -Zd -Sp ".\CPY"  -o "OBJ\LSVIDPRG.acu" "SRC\LSVIDPRG.cob"
+c:\acucorp\acucbl700\acugt\bin\ccbl32 -Zd -Sp ".\CPY"  -o "OBJ\MNVIDPRG.acu" "SRC\MNVIDPRG.cob"
+c:\acucorp\acucbl700\acugt\bin\ccbl32 -Zd -Sp ".\CPY"  -o "OBJ\SRVIDPRG.acu" "SRC\SRVIDPRG.cob"
+c:\acucorp\acucbl700\acugt\bin\ccbl32 -Zd -Sp ".\CPY"  -o "OBJ\XPVIDPRG.acu" "SRC\XPVIDPRG.cob"
+pause
