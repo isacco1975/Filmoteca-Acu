@@ -120,17 +120,17 @@
        0300-PROCESS-DATA.
            ADD 1 TO WRK-READ-LINES.
            INITIALIZE FIL-EXP.
-      *
-      *     STRING
-      *         CODIGO ';'
-      *         FUNCTION TRIM(TITULO) ';'
-      *         FUNCTION TRIM(GENERO) ';'
-      *         DURACAO ';'
-      *         FUNCTION TRIM(DISTRIB) ';'
-      *         NOTA
-      *         INTO FIL-EXP.
-      *
-               JSON GENERATE FIL-EXP FROM REG-FIL.
+      
+           STRING
+               CODIGO ';'
+               TITULO ';'
+               GENERO ';'
+               DURACAO ';'
+               DISTRIB ';'
+               NOTA
+               INTO FIL-EXP.
+      
+      *        JSON GENERATE FIL-EXP FROM REG-FIL.
 
                IF WRK-WRITE-LINES GREATER ZERO
                  STRING ',' DELIMITED BY SIZE
@@ -145,7 +145,7 @@
                    ADD 1 TO WRK-WRITE-LINES
                END-IF.
       *
-               READ MOVIES NEXT AT END CONTINUE.
+               READ MOVIES NEXT AT END EXIT PARAGRAPH.
        0300-PROCESS-DATA-END. EXIT.
 
        0400-PRINT-RESULTS.
