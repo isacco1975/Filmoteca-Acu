@@ -17,11 +17,15 @@
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
            COPY 'CPVIDFCV.cpy'. *> MOVIES DAT WORKBOOK
+           COPY 'CPVIDGES.cpy'. *> GENRES DAT WORKBOOK
       *
        DATA DIVISION.
        FILE SECTION.
        FD  MOVIES.
            COPY 'CPVIDDAT.cpy'. *> MOVIES DATA FILE
+
+       FD  GENRES.
+           COPY 'CPVIDGEN.cpy'. *> GENRE DATA FILE
       *
        WORKING-STORAGE SECTION.
            COPY 'CPVIDMAN.cpy'. *> MAIN SCREEN
@@ -31,6 +35,14 @@
            COPY 'CPVIDFCW.cpy'. *> MOVIES DAT WORKBOOK
            COPY 'CPVIDABE.cpy'. *> ABEND
            COPY 'CPVIDSRC.cpy'. *> SEARCH RECORD GENRES
+
+       77  FS-GENRES                PIC XX.
+       77  IDX PIC S9(4) COMP VALUE ZERO.
+       
+       01 TAB-GEN.
+          05 OCC-GEN      OCCURS 10 TIMES.
+             10 EL-GEN-COD  PIC X(2).
+             10 EL-GEN-DESC PIC X(8).
       *
        SCREEN SECTION.
            COPY 'SCVIDMAN.cpy'. *> MAIN SCREEN
@@ -63,10 +75,40 @@
                    TO WS-ABEND-MESSAGE
                PERFORM 0600-ROT-ABEND
            END-IF.
+           
+           OPEN INPUT GENRES.
+      *
+           IF FS-GENRES NOT EQUAL "00"
+               MOVE '47ERROR OPENING GENRE FILE.'
+                   TO WRK-MSG
+               DISPLAY SCREEN-MSG
+               ACCEPT SCREEN-WAIT
+      *
+               MOVE FS-GENRES TO WS-ABEND-CODE
+               MOVE 'ERRO OPENING GENRE FILE'
+                   TO WS-ABEND-MESSAGE
+               PERFORM 0600-ROT-ABEND
+           END-IF.
+      *
+           READ GENRES AT END CONTINUE END-READ  
+           
+           IF FS-GENRES = ZERO   
+              PERFORM GENRE-TO-MEMORY
+           END-IF   
+           .
        0100-OPEN-DATA-END. EXIT.
 
        0200-VALIDATE-DATA.
        0200-VALIDATE-DATA-END. EXIT.
+
+       GENRE-TO-MEMORY.
+           PERFORM UNTIL FS-GENRES NOT = ZERO
+              ADD 1 TO IDX
+              MOVE CODIGO-GEN TO EL-GEN-COD (IDX)
+              MOVE DESC-GEN   TO EL-GEN-DESC(IDX)
+              READ GENRES AT END CONTINUE END-READ
+           END-PERFORM   
+           .
 
        0300-PROCESS-DATA.
            COPY 'CPVIDDTE.cpy'. *> DATE/TIME PROCEDURE
@@ -123,7 +165,7 @@
        0310-SRC-GENRE.
            MOVE GENERO TO LNK-GEN-COD.
            ADD 3 TO WRK-LINE GIVING LNK-GEN-DESC-LINE.
-           CALL 'SRVIDPRG' USING LNK-GENRES.
+           CALL 'SRVIDPRG' USING LNK-GENRES, TAB-GEN.
        0310-SRC-GENRE-END. EXIT.
 
        0400-PRINT-RESULTS.
