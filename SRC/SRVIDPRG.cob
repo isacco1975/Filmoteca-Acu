@@ -112,21 +112,24 @@
       ***     PERFORM VARYING WRK-LST-COUNT
       ***       FROM 1 BY 1 *> ????? UNTIL WRK-LST-COUNT EQUAL 10
       **** WHYYYYY????         OR FS-GENRES     EQUAL 10
-           PERFORM UNTIL GENRE-FOUND OR GENRE-NOT-FOUND
+           PERFORM VARYING WRK-LST-COUNT 
+                   FROM 1 BY 1 UNTIL WRK-LST-COUNT = 10
       *
-              DISPLAY CODIGO-GEN AT LINE WRK-LST-LINE COLUMN 60
+              DISPLAY EL-GEN-COD(WRK-LST-COUNT) 
+                  AT LINE WRK-LST-LINE COLUMN 60
               COLOR 3 HIGHLIGHT
-              DISPLAY DESC-GEN   AT LINE WRK-LST-LINE COLUMN 69
+              DISPLAY EL-GEN-DESC(WRK-LST-COUNT)    
+                  AT LINE WRK-LST-LINE COLUMN 69
               COLOR 7 HIGHLIGHT
       *
                ADD 1 TO WRK-LST-LINE               
       * NO!!!  READ GENRES
            END-PERFORM
       *
-      *    IF FS-GENRES EQUAL 10
-      *      MOVE 'N'       TO WRK-CONTINUE
-      *      DISPLAY '* EXT *' AT LINE WRK-LST-LINE COLUMN 69
-      *    END-IF.
+           IF FS-GENRES EQUAL 10
+             MOVE 'N'       TO WRK-CONTINUE
+             DISPLAY '* EXT *' AT LINE WRK-LST-LINE COLUMN 69
+           END-IF.
       
            IF GENRE-NOT-FOUND
              MOVE 'N'       TO WRK-CONTINUE
@@ -149,10 +152,11 @@
        0200-VALIDATE-DATA-END. EXIT.
 
        0300-PROCESS-DATA.
-      *     IF LNK-GEN-COD EQUAL CODIGO-GEN
-      *         MOVE DESC-GEN TO LNK-GEN-DESC
-      *         MOVE 1        TO LNK-GEN-STATUS
-      *     END-IF.
+      * THIS IS TO SELECT GENRE FROM THE TABLE IN FUNC 1 AND 2 
+            IF LNK-GEN-COD EQUAL CODIGO-GEN OR GENRE-FOUND
+      *          MOVE DESC-GEN TO LNK-GEN-DESC
+                MOVE 1        TO LNK-GEN-STATUS
+            END-IF.
       **
       *     READ GENRES AT END CONTINUE END-READ.
             SET IDX TO 1 
@@ -162,6 +166,7 @@
                    WHEN LNK-GEN-COD = EL-GEN-COD(IDX)
                         MOVE EL-GEN-DESC(IDX) TO LNK-GEN-DESC
                         SET GENRE-FOUND    TO TRUE
+                        MOVE 1             TO LNK-GEN-STATUS
             END-SEARCH
             .
        0300-PROCESS-DATA-END. EXIT.

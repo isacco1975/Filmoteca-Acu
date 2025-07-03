@@ -3,7 +3,7 @@
       **
            MOVE GENERO TO LNK-GEN-COD.
            ADD 6 TO WRK-LINE GIVING LNK-GEN-DESC-LINE.
-           CALL 'SRVIDPRG' USING LNK-GENRES.
+           CALL 'SRVIDPRG' USING LNK-GENRES, TAB-GEN.
       *    
            IF LNK-GEN-STATUS EQUAL 1
                MOVE LNK-GEN-COD TO GENERO
