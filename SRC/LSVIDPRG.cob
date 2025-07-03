@@ -17,6 +17,7 @@
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
            COPY 'CPVIDSEQ.cpy'. *> MOVIES DAT WORKBOOK SEQUENTIAL
+           COPY 'CPVIDGES.cpy'. *> GENRES DAT WORKBOOK
       *
        DATA DIVISION.
 
@@ -24,6 +25,9 @@
        FD MOVIES
            RECORDING MODE IS F.
            COPY 'CPVIDDAT.cpy'.
+
+       FD  GENRES.
+           COPY 'CPVIDGEN.cpy'. *> GENRE DATA FILE
       *
        WORKING-STORAGE SECTION.
            COPY 'CPVIDMAN.cpy'. *> MAIN SCREEN
@@ -37,6 +41,13 @@
        77  WRK-LST-LINE             PIC 9(02) USAGE COMP-3 VALUE 14.
        77  WRK-LST-PAGE             PIC 9(02) USAGE COMP-3 VALUE 01.
        77  WRK-LST-COUNT            PIC 9(02) USAGE COMP-3 VALUE 01.
+       77  FS-GENRES                PIC XX.
+       77  IDX PIC S9(4) COMP VALUE ZERO.
+       
+       01 TAB-GEN.
+          05 OCC-GEN      OCCURS 10 TIMES.
+             10 EL-GEN-COD  PIC X(2).
+             10 EL-GEN-DESC PIC X(8).
       *
        SCREEN SECTION.
            COPY 'SCVIDMAN.cpy'. *> MAIN SCREEN
@@ -45,7 +56,7 @@
            COPY 'SCVIDLST.cpy'. *> LIST SCREEN
       *
        PROCEDURE DIVISION.
-       0000-MAIN SECTION.
+       0000-MAIN.
            INITIALIZE WRK-CONTINUE.
            PERFORM 0100-OPEN-DATA.
       *     PERFORM 0200-VALIDATE-DATA.
@@ -56,9 +67,28 @@
            PERFORM 0700-END-PROGRAM.
        0000-MAIN-END. EXIT.
 
-       0100-OPEN-DATA SECTION.
+       0100-OPEN-DATA.
            OPEN INPUT MOVIES.
+           OPEN INPUT GENRES.
       *
+           IF FS-GENRES NOT EQUAL "00"
+               MOVE '47ERROR OPENING GENRE FILE.'
+                   TO WRK-MSG
+               DISPLAY SCREEN-MSG
+               ACCEPT SCREEN-WAIT
+      *
+               MOVE FS-GENRES TO WS-ABEND-CODE
+               MOVE 'ERRO OPENING GENRE FILE'
+                   TO WS-ABEND-MESSAGE
+               PERFORM 0600-ROT-ABEND
+           END-IF.
+      *
+           READ GENRES AT END CONTINUE END-READ  
+           
+           IF FS-GENRES = ZERO   
+              PERFORM GENRE-TO-MEMORY
+           END-IF   
+      
            IF FS-MOVIES NOT EQUAL ZERO
                MOVE '46ERROR DURING OPENING MOVIES FILE.'
                    TO WRK-MSG
@@ -88,10 +118,19 @@
            END-IF.
        0100-OPEN-DATA-END. EXIT.
 
-       0200-VALIDATE-DATA SECTION.
+       GENRE-TO-MEMORY.
+           PERFORM UNTIL FS-GENRES NOT = ZERO
+              ADD 1 TO IDX
+              MOVE CODIGO-GEN TO EL-GEN-COD (IDX)
+              MOVE DESC-GEN   TO EL-GEN-DESC(IDX)
+              READ GENRES AT END CONTINUE END-READ
+           END-PERFORM   
+           .
+
+       0200-VALIDATE-DATA.
        0200-VALIDATE-DATA-END. EXIT.
 
-       0300-PROCESS-DATA SECTION.
+       0300-PROCESS-DATA.
            COPY 'CPVIDDTE.cpy'. *> DATE/TIME PROCEDURE
            MOVE "   * * * * M O V I E  L I S T * * * *" TO WRK-TITLE.
            MOVE "PF3=EXT   ANY KEY TO ADVANCE PAGE" TO WRK-KEYS.
@@ -144,16 +183,16 @@
            END-IF.
        0300-PROCESS-DATA-END. EXIT.
 
-       0310-SRC-GENRE SECTION.
+       0310-SRC-GENRE.
            MOVE GENERO TO LNK-GEN-COD.
            MOVE 0      TO LNK-GEN-DESC-LINE.
-           CALL 'SRVIDPRG' USING LNK-GENRES.
+           CALL 'SRVIDPRG' USING LNK-GENRES, TAB-GEN.
        0310-SRC-GENRE-END. EXIT.
 
-       0400-PRINT-RESULTS SECTION.
+       0400-PRINT-RESULTS.
        0400-PRINT-RESULTS-END. EXIT.
 
-       0500-CLOSE-DATA SECTION.
+       0500-CLOSE-DATA.
            CLOSE MOVIES.
       *
            IF FS-MOVIES NOT EQUAL "00"
@@ -169,13 +208,14 @@
            END-IF.
        0500-CLOSE-DATA-END. EXIT.
 
-       0600-ROT-ABEND SECTION.
+       0600-ROT-ABEND.
            COPY 'CPVIDRAB.cpy'. *> ABEND ROUTINE.
       *
            PERFORM 0700-END-PROGRAM.
        0600-ROT-ABEND-END. EXIT.
 
-       0700-END-PROGRAM SECTION.
+       0700-END-PROGRAM.
+           CLOSE GENRES
            GOBACK.
        0700-END-PROGRAM-END. EXIT.
 

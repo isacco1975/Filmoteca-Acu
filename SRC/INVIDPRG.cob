@@ -39,7 +39,7 @@
            COPY 'SCVIDEDT.cpy'. *> EDITION SCREEN
       *
        PROCEDURE DIVISION.
-       0000-MAIN SECTION.
+       0000-MAIN.
            INITIALIZE WRK-CONTINUE.
            PERFORM 0100-OPEN-DATA.
            PERFORM 0300-PROCESS-DATA UNTIL WRK-CONTINUE EQUAL 'N'
@@ -48,7 +48,7 @@
            PERFORM 0700-END-PROGRAM.
        0000-MAIN-END. EXIT.
 
-       0100-OPEN-DATA SECTION.
+       0100-OPEN-DATA.
            OPEN I-O MOVIES.
       *
            IF FS-MOVIES NOT EQUAL "00"
@@ -64,11 +64,11 @@
            END-IF.
        0100-OPEN-DATA-END. EXIT.
 
-       0200-VALIDATE-DATA SECTION.
+       0200-VALIDATE-DATA.
            COPY 'CPVIDRVD.cpy'. *> VALIDATION EDIT DATA ROUTINE
        0200-VALIDATE-DATA-END. EXIT.
 
-       0300-PROCESS-DATA SECTION.
+       0300-PROCESS-DATA.
            COPY 'CPVIDDTE.cpy'. *> DATE/TIME PROCEDURE
            MOVE "    * * * *  M O V I E  A D D * * * *"    TO WRK-TITLE.
            MOVE "PF3=EXT  TAB=NEXT FIELD  ENTER=CONFIRM/SELECT GENRE"
@@ -84,7 +84,7 @@
       *
            IF CODIGO EQUAL ZEROES
                MOVE 'N' TO WRK-CONTINUE
-               EXIT SECTION
+               EXIT PARAGRAPH
            END-IF.
       *
            READ MOVIES
@@ -101,7 +101,7 @@
            END-READ.
        0300-PROCESS-DATA-END. EXIT.
 
-       0310-PROCESS-EDIT-DATA SECTION.
+       0310-PROCESS-EDIT-DATA.
            INITIALIZE WRK-MSG.
            ACCEPT  SCREEN-EDIT-DDS.
       *
@@ -142,14 +142,14 @@
       *
        0310-PROCESS-EDIT-DATA-END. EXIT.
            
-       0320-SRC-GENRE SECTION.
+       0320-SRC-GENRE.
            COPY 'CPVIDGSE.cpy'. *> SEARCH GENRE ROUTINE
        0320-SRC-GENRE-END. EXIT.
 
-       0400-PRINT-RESULTS SECTION.
+       0400-PRINT-RESULTS.
        0400-PRINT-RESULTS-END. EXIT.
 
-       0500-CLOSE-DATA SECTION.
+       0500-CLOSE-DATA.
            CLOSE MOVIES.
       *
            IF FS-MOVIES NOT EQUAL ZERO
@@ -166,13 +166,13 @@
 
        0500-CLOSE-DATA-END. EXIT.
 
-       0600-ROT-ABEND SECTION.
+       0600-ROT-ABEND.
            COPY 'CPVIDRAB.cpy'. *> ABEND ROUTINE.
       *
            PERFORM 0700-END-PROGRAM.
        0600-ROT-ABEND-END. EXIT.
 
-       0700-END-PROGRAM SECTION.
+       0700-END-PROGRAM.
            GOBACK.
        0700-END-PROGRAM-END. EXIT.
 

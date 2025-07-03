@@ -51,7 +51,7 @@
            PERFORM 0700-END-PROGRAM.
        0000-MAIN-END. EXIT.
       *
-       0100-OPEN-DATA SECTION.
+       0100-OPEN-DATA.
            OPEN I-O MOVIES.
       *
            IF FS-MOVIES EQUAL "35" THEN
@@ -62,7 +62,7 @@
            CLOSE MOVIES.
        0100-OPEN-DATA-END. EXIT.
       *
-       0300-PROCESS-DATA SECTION.
+       0300-PROCESS-DATA.
            COPY 'CPVIDDTE.cpy'. *> DATE/TIME PROCEDURE
            MOVE "     * * * * M A I N  M E N U * * *" TO WRK-TITLE.
            MOVE "PF3=EXIT"                            TO WRK-KEYS.
@@ -97,17 +97,17 @@
            END-EVALUATE.
        0300-PROCESS-DATA-END. EXIT.
 
-       0310-OTHER SECTION.
+       0310-OTHER.
            INITIALIZE WRK-MSG.
            MOVE '20OPCAO INVALIDA.' TO WRK-MSG.
            DISPLAY SCREEN-MSG.
            ACCEPT SCREEN-WAIT.
        0310-OTHER-END. EXIT.
 
-       0600-ROT-ABEND SECTION.
+       0600-ROT-ABEND.
        0600-ROT-ABEND-END. EXIT.
 
-       0700-END-PROGRAM SECTION.
+       0700-END-PROGRAM.
            GOBACK.
        0700-END-PROGRAM-END. EXIT.
 
