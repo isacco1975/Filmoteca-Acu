@@ -215,6 +215,7 @@
        0600-ROT-ABEND-END. EXIT.
 
        0700-END-PROGRAM.
+           CLOSE GENRES
            GOBACK.
        0700-END-PROGRAM-END. EXIT.
 
