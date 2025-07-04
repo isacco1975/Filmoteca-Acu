@@ -5,6 +5,10 @@
       * DATA CENTER : COMPANY.EDUC360                                  *
       * PURPOSE     : SEARCH RECORD OF GENRE ROUTINE OF VIDEOTECA PROG *
       ******************************************************************
+      * ACUCOBOL CONVERSION AND OPTIMIZATION BY:                       *
+      *          ISAAC GARCIA PEVERI (IGP TECH BLOG [YOUTUBE CHANNEL]) *
+      *          JULY 2025                                             *
+      ******************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. SRVIDPRG.
        AUTHOR. FABIO MARQUES.
@@ -61,45 +65,10 @@
       *        PERFORM 0500-CLOSE-DATA
            END-IF.
       *
-      * WE DON'T HAVE TO OPEN CONTINUOUSLY THIS FILE AND SCROLL IT 
-      * EVERY TIME! IT'S WRONG!!!! 
-      * INSTEAD I WILL PUT DATA IN MEMORY IN THE CALLER.
-      *    PERFORM 0200-VALIDATE-DATA.
-      *    PERFORM 0100-OPEN-DATA.
            PERFORM 0300-PROCESS-DATA *> UNTIL FS-GENRES EQUAL "10".
            PERFORM 0400-PRINT-RESULTS.
-      *    PERFORM 0500-CLOSE-DATA.
            PERFORM 0700-END-PROGRAM.
        0000-MAIN-END. EXIT.
-
-      * 0100-OPEN-DATA.
-      *     OPEN INPUT GENRES.
-      *     IF FS-GENRES NOT EQUAL "00"
-      *         MOVE '47ERROR OPENING GENRE FILE.'
-      *             TO WRK-MSG
-      *         DISPLAY SCREEN-MSG
-      *         ACCEPT SCREEN-WAIT
-      **
-      *         MOVE FS-GENRES TO WS-ABEND-CODE
-      *         MOVE 'ERRO OPENING GENRE FILE'
-      *             TO WS-ABEND-MESSAGE
-      *         PERFORM 0600-ROT-ABEND
-      *     END-IF.
-      **
-      *     READ GENRES
-      **
-      *     IF FS-GENRES NOT EQUAL "00"
-      *         MOVE '48ERROR FETCHING GENRE FIRST ENTRY.'
-      *             TO WRK-MSG
-      *         DISPLAY SCREEN-MSG
-      *         ACCEPT SCREEN-WAIT
-      **
-      *         MOVE FS-GENRES TO WS-ABEND-CODE
-      *         MOVE 'ERROR FETCHING GENRE FIRST ENTRY'
-      *             TO WS-ABEND-MESSAGE
-      *         PERFORM 0600-ROT-ABEND
-      *     END-IF.
-      * 0100-OPEN-DATA-END. EXIT.
 
        0150-SELECT-GENRE.
            DISPLAY 'PF3=EXT   ANY KEY TO FORWARD PAGES'
@@ -109,9 +78,6 @@
            MOVE 9 TO WRK-LST-LINE
            SET GENRE-NOT-FOUND TO TRUE
 
-      ***     PERFORM VARYING WRK-LST-COUNT
-      ***       FROM 1 BY 1 *> ????? UNTIL WRK-LST-COUNT EQUAL 10
-      **** WHYYYYY????         OR FS-GENRES     EQUAL 10
            PERFORM VARYING WRK-LST-COUNT 
                    FROM 1 BY 1 UNTIL WRK-LST-COUNT = 10
       *
@@ -123,7 +89,6 @@
               COLOR 7 HIGHLIGHT
       *
                ADD 1 TO WRK-LST-LINE               
-      * NO!!!  READ GENRES
            END-PERFORM
       *
            IF FS-GENRES EQUAL 10
@@ -154,11 +119,9 @@
        0300-PROCESS-DATA.
       * THIS IS TO SELECT GENRE FROM THE TABLE IN FUNC 1 AND 2 
             IF LNK-GEN-COD EQUAL CODIGO-GEN OR GENRE-FOUND
-      *          MOVE DESC-GEN TO LNK-GEN-DESC
                 MOVE 1        TO LNK-GEN-STATUS
             END-IF.
-      **
-      *     READ GENRES AT END CONTINUE END-READ.
+
             SET IDX TO 1 
             
             SEARCH OCC-GEN 
@@ -172,15 +135,6 @@
        0300-PROCESS-DATA-END. EXIT.
 
        0400-PRINT-RESULTS.
-      *     IF LNK-GEN-DESC EQUAL SPACES
-      *         MOVE 'N LOCALI' TO LNK-GEN-DESC
-      *     END-IF.
-      **
-      *     IF LNK-GEN-DESC NOT = SPACES
-      *        DISPLAY LNK-GEN-DESC AT LINE LNK-GEN-DESC-LINE + 1 
-      *        COLOR 3 HIGHLIGHT
-      *        COLUMN 36
-      *     END-IF.
            IF NOT GENRE-FOUND 
                MOVE 'N LOCALI' TO LNK-GEN-DESC
            ELSE    
@@ -189,21 +143,6 @@
               COLUMN 36
            END-IF.
        0400-PRINT-RESULTS-END. EXIT.
-
-      * 0500-CLOSE-DATA.
-      *     CLOSE GENRES.
-      *     IF FS-GENRES NOT EQUAL "00"
-      *         MOVE '48ERRO FETCHING GENRE RECORD'
-      *             TO WRK-MSG
-      *         DISPLAY SCREEN-MSG
-      *         ACCEPT SCREEN-WAIT
-      **
-      *         MOVE FS-GENRES TO WS-ABEND-CODE
-      *         MOVE 'ERRO FETCHING GENRE RECORD'
-      *             TO WS-ABEND-MESSAGE
-      *         PERFORM 0600-ROT-ABEND
-      *     END-IF.
-      * 0500-CLOSE-DATA-END. EXIT.
 
        0600-ROT-ABEND.
            COPY 'CPVIDRAB.cpy'. *> ABEND ROUTINE.

@@ -5,6 +5,10 @@
       * DATA CENTER : COMPANY.EDUC360                                  *
       * PURPOSE     : MAIN MENU OF VIDEOTECA PROGRAM                   *
       ******************************************************************
+      * ACUCOBOL CONVERSION AND OPTIMIZATION BY:                       *
+      *          ISAAC GARCIA PEVERI (IGP TECH BLOG [YOUTUBE CHANNEL]) *
+      *          JULY 2025                                             *
+      ******************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. MNVIDPRG.
        AUTHOR. FABIO MARQUES.
@@ -40,14 +44,10 @@
        PROCEDURE DIVISION.
        0000-MAIN SECTION.
            DISPLAY SCREEN-ASCII-ART.
-      *    CALL "C$SLEEP" USING 2 END-CALL.
            ACCEPT OMITTED
       *
            PERFORM 0100-OPEN-DATA.
-      *     PERFORM 0200-VALIDATE-DATA.
            PERFORM 0300-PROCESS-DATA UNTIL WRK-OPTION EQUAL ZEROES.
-      *     PERFORM 0400-PRINT-RESULTS.
-      *    PERFORM 0500-CLOSE-DATA.
            PERFORM 0700-END-PROGRAM.
        0000-MAIN-END. EXIT.
       *
@@ -69,18 +69,6 @@
            MOVE '0'                                   TO WRK-OPTION.
       *
            DISPLAY SCREEN-MAIN.
-      *
-      *    IF WRK-DATFILE-CREATED EQUAL 'S'
-      *        INITIALIZE WRK-DATFILE-CREATED
-      *        INITIALIZE WRK-MSG
-      *        MOVE '29 RECORDS CREATED        ' TO WRK-MSG
-      *        DISPLAY SCREEN-MSG
-      *        ACCEPT SCREEN-WAIT
-
-      *        INITIALIZE WRK-MSG
-      *        DISPLAY WRK-MSG-TEXT AT LINE 22 COLUMN 02
-      *     END-IF.
-      *
            DISPLAY SCREEN-MENU
            ACCEPT SCREEN-MENU.
       *

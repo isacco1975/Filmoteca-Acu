@@ -9,6 +9,7 @@
                MOVE LNK-GEN-COD TO GENERO
            END-IF.
       *    
+      *     DISPLAY SCREEN-MAIN.
            DISPLAY SCREEN-MENU.
            DISPLAY SCREEN-EDIT.
            DISPLAY SCREEN-EDIT-KEY.

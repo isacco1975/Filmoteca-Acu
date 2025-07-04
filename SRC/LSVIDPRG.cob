@@ -5,6 +5,10 @@
       * DATA CENTER : COMPANY.EDUC360                                  *
       * PURPOSE     : LIST ON SCREEN ROUTINE OF VIDEOTECA PROGRAM      *
       ******************************************************************
+      * ACUCOBOL CONVERSION AND OPTIMIZATION BY:                       *
+      *          ISAAC GARCIA PEVERI (IGP TECH BLOG [YOUTUBE CHANNEL]) *
+      *          JULY 2025                                             *
+      ******************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. LSVIDPRG.
        AUTHOR. FABIO MARQUES.
@@ -59,10 +63,8 @@
        0000-MAIN.
            INITIALIZE WRK-CONTINUE.
            PERFORM 0100-OPEN-DATA.
-      *     PERFORM 0200-VALIDATE-DATA.
            PERFORM 0300-PROCESS-DATA UNTIL WRK-CONTINUE EQUAL 'N'
                                         OR WRK-CONTINUE EQUAL 'n'.
-      *     PERFORM 0400-PRINT-RESULTS.
            PERFORM 0500-CLOSE-DATA.
            PERFORM 0700-END-PROGRAM.
        0000-MAIN-END. EXIT.
@@ -136,7 +138,6 @@
            MOVE "PF3=EXT   ANY KEY TO ADVANCE PAGE" TO WRK-KEYS.
            MOVE 8 TO WRK-LINE.
       *
-      * wrong!!!!     DISPLAY SCREEN-MAIN.
            DISPLAY SCREEN-MENU.
            DISPLAY SCREEN-LIST.
       *

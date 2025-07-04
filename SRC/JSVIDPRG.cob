@@ -5,6 +5,10 @@
       * DATA CENTER : COMPANY.EDUC360                                  *
       * PURPOSE     : EXPORT TO JSON ROUTINE OF VIDEOTECA PROGRAM      *
       ******************************************************************
+      * ACUCOBOL CONVERSION AND OPTIMIZATION BY:                       *
+      *          ISAAC GARCIA PEVERI (IGP TECH BLOG [YOUTUBE CHANNEL]) *
+      *          JULY 2025                                             *
+      ******************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. JSVIDPRG.
        AUTHOR. FABIO MARQUES.
@@ -55,7 +59,6 @@
            INITIALIZE WRK-READ-LINES WRK-WRITE-LINES.
       *
            PERFORM 0100-OPEN-DATA.
-      *     PERFORM 0200-VALIDATE-DATA.
            PERFORM 0300-PROCESS-DATA UNTIL FS-MOVIES EQUAL "10".
            PERFORM 0400-PRINT-RESULTS.
            PERFORM 0500-CLOSE-DATA.

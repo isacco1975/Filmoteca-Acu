@@ -5,6 +5,10 @@
       * DATA CENTER : COMPANY.EDUC360                                  *
       * PURPOSE     : IMPORT FROM CSV ROUTINE OF VIDEOTECA PROGRAM     *
       ******************************************************************
+      * ACUCOBOL CONVERSION AND OPTIMIZATION BY:                       *
+      *          ISAAC GARCIA PEVERI (IGP TECH BLOG [YOUTUBE CHANNEL]) *
+      *          JULY 2025                                             *
+      ******************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. IMVIDPRG.
        AUTHOR. FABIO MARQUES.
@@ -72,7 +76,6 @@
       *
            PERFORM 0100-OPEN-DATA.
            PERFORM 0110-DATE-TIME.
-      *     PERFORM 0200-VALIDATE-DATA.
            PERFORM 0300-PROCESS-DATA UNTIL FS-MOVIES-SEQ EQUAL "10".
            PERFORM 0400-PRINT-RESULTS.
            PERFORM 0500-CLOSE-DATA.
@@ -112,8 +115,6 @@
       *
            IF FS-RELATO-IMP NOT EQUAL "00"
                OPEN OUTPUT RELATO-IMP
-      *        CLOSE RELATO-IMP
-      *        OPEN I-O RELATO-IMP
 
                IF FS-RELATO-IMP NOT EQUAL "00"
                    PERFORM 0500-CLOSE-DATA

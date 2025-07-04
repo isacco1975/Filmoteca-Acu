@@ -5,6 +5,10 @@
       * DATA CENTER : COMPANY.EDUC360                                  *
       * PURPOSE     : INCLUDE ROUTINE OF VIDEOTECA PROGRAM             *
       ******************************************************************
+      * ACUCOBOL CONVERSION AND OPTIMIZATION BY:                       *
+      *          ISAAC GARCIA PEVERI (IGP TECH BLOG [YOUTUBE CHANNEL]) *
+      *          JULY 2025                                             *
+      ******************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. INVIDPRG.
        AUTHOR. FABIO MARQUES.
@@ -119,7 +123,6 @@
            INITIALIZE REG-FIL WRK-MSG WRK-IS-VALID.
            MOVE '+' TO GENERO.
       *
-      *     DISPLAY SCREEN-MAIN.
            DISPLAY SCREEN-MENU.
            DISPLAY SCREEN-EDIT.
            ACCEPT  SCREEN-EDIT-KEY.

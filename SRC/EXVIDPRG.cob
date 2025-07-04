@@ -5,6 +5,10 @@
       * DATA CENTER : COMPANY.EDUC360                                  *
       * PURPOSE     : EXCLUSION ROUTINE OF VIDEOTECA PROGRAM           *
       ******************************************************************
+      * ACUCOBOL CONVERSION AND OPTIMIZATION BY:                       *
+      *          ISAAC GARCIA PEVERI (IGP TECH BLOG [YOUTUBE CHANNEL]) *
+      *          JULY 2025                                             *
+      ******************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. EXVIDPRG.
        AUTHOR. FABIO MARQUES.
@@ -54,10 +58,8 @@
        0000-MAIN SECTION.
            INITIALIZE WRK-CONTINUE LNK-GENRES.
            PERFORM 0100-OPEN-DATA.
-      *     PERFORM 0200-VALIDATE-DATA.
            PERFORM 0300-PROCESS-DATA UNTIL WRK-CONTINUE EQUAL 'N'
                                         OR WRK-CONTINUE EQUAL 'n'.
-      *     PERFORM 0400-PRINT-RESULTS.
            PERFORM 0500-CLOSE-DATA.
            PERFORM 0700-END-PROGRAM.
        0000-MAIN-END. EXIT.
@@ -118,7 +120,6 @@
            MOVE 10                                         TO WRK-LINE.
            INITIALIZE REG-FIL WRK-MSG WRK-IS-VALID.
       *
-      *     DISPLAY SCREEN-MAIN.
            DISPLAY SCREEN-MENU.
            DISPLAY SCREEN-EDIT.
            ACCEPT  SCREEN-EDIT-KEY.
